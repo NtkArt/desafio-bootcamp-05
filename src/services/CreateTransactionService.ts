@@ -16,8 +16,7 @@ class CreateTransactionService {
 
   public execute({ title, value, type }: RequestDTO): Transaction {
     const { total } = this.transactionsRepository.getBalance();
-
-    if (!['income', 'outcome'].includes(type)) throw Error('Type not included');
+    if (!type) throw Error('Type not included');
 
     if (type === 'outcome' && total < value)
       throw Error('Dont have founds enough');
